@@ -65,7 +65,8 @@ namespace SimpleJSON
         DoubleValue = 5,
         BoolValue = 6,
         FloatValue = 7,
-        LongValue = 8
+        LongValue = 8,
+        Null = 9
     }
 
     public abstract class JSONNode
@@ -152,10 +153,16 @@ namespace SimpleJSON
 
         public virtual JSONBinaryTag Tag { get; set; }
 
-        public virtual int AsInt
+        public virtual bool IsNull
+        {
+            get { return Tag == JSONBinaryTag.Null; }
+        }
+
+        public virtual int? AsInt
         {
             get
             {
+                if (IsNull) return null;
                 var v = 0;
                 if (int.TryParse(Value, out v))
                     return v;
@@ -168,10 +175,11 @@ namespace SimpleJSON
             }
         }
 
-        public virtual long AsLong
+        public virtual long? AsLong
         {
             get
             {
+                if (IsNull) return null;
                 long v = 0;
                 if (long.TryParse(Value, out v))
                     return v;
@@ -184,10 +192,11 @@ namespace SimpleJSON
             }
         }
 
-        public virtual float AsFloat
+        public virtual float? AsFloat
         {
             get
             {
+                if (IsNull) return null;
                 var v = 0.0f;
                 if (float.TryParse(Value, out v))
                     return v;
@@ -200,10 +209,11 @@ namespace SimpleJSON
             }
         }
 
-        public virtual double AsDouble
+        public virtual double? AsDouble
         {
             get
             {
+                if (IsNull) return null;
                 var v = 0.0;
                 if (double.TryParse(Value, out v))
                     return v;
@@ -216,10 +226,11 @@ namespace SimpleJSON
             }
         }
 
-        public virtual bool AsBool
+        public virtual bool? AsBool
         {
             get
             {
+                if (IsNull) return null;
                 var v = false;
                 if (bool.TryParse(Value, out v))
                     return v;
@@ -227,7 +238,14 @@ namespace SimpleJSON
             }
             set
             {
-                Value = (value) ? "true" : "false";
+                if (value == null)
+                {
+                    Value = "null";
+                }
+                else
+                {
+                    Value = (value.Value) ? "true" : "false";
+                }
                 Tag = JSONBinaryTag.BoolValue;
             }
         }
@@ -325,6 +343,11 @@ namespace SimpleJSON
             var integer = 0;
             var longInteger = 0L;
             double real = 0;
+
+            if (token.Equals("null"))
+            {
+                return new JSONData(null);
+            }
 
             if (int.TryParse(token, out integer))
             {
@@ -687,6 +710,10 @@ namespace SimpleJSON
                 case JSONBinaryTag.LongValue:
                 {
                     return new JSONData(aReader.ReadInt64());
+                }
+                case JSONBinaryTag.Null:
+                {
+                    return new JSONData(null);
                 }
 
                 default:
@@ -1081,6 +1108,12 @@ namespace SimpleJSON
 
         public JSONData(string aData)
         {
+            if (aData == null)
+            {
+                m_Data = "null";
+                Tag = JSONBinaryTag.Null;
+                return;
+            }
             m_Data = aData;
             Tag = JSONBinaryTag.Value;
         }
@@ -1126,7 +1159,8 @@ namespace SimpleJSON
                 Tag == JSONBinaryTag.IntValue ||
                 Tag == JSONBinaryTag.LongValue ||
                 Tag == JSONBinaryTag.FloatValue ||
-                Tag == JSONBinaryTag.DoubleValue)
+                Tag == JSONBinaryTag.DoubleValue ||
+                Tag == JSONBinaryTag.Null)
             {
                 return Escape(m_Data);
             }
@@ -1142,7 +1176,8 @@ namespace SimpleJSON
                 Tag == JSONBinaryTag.IntValue ||
                 Tag == JSONBinaryTag.LongValue ||
                 Tag == JSONBinaryTag.FloatValue ||
-                Tag == JSONBinaryTag.DoubleValue)
+                Tag == JSONBinaryTag.DoubleValue ||
+                Tag == JSONBinaryTag.Null)
             {
                 return Escape(m_Data);
             }
@@ -1161,6 +1196,7 @@ namespace SimpleJSON
                 case JSONBinaryTag.IntValue:
                 case JSONBinaryTag.LongValue:
                 case JSONBinaryTag.BoolValue:
+                case JSONBinaryTag.Null:
                     return m_Data;
                 case JSONBinaryTag.Value:
                     var result = new StringBuilder("\"");
@@ -1176,32 +1212,37 @@ namespace SimpleJSON
         {
             var tmp = new JSONData("");
 
+            if (m_Data == null)
+            {
+                aWriter.Write((byte) JSONBinaryTag.Null);
+                return;
+            }
             tmp.AsInt = AsInt;
             if (tmp.m_Data == m_Data)
             {
                 aWriter.Write((byte) JSONBinaryTag.IntValue);
-                aWriter.Write(AsInt);
+                aWriter.Write(AsInt.Value);
                 return;
             }
             tmp.AsLong = AsLong;
             if (tmp.m_Data == m_Data)
             {
                 aWriter.Write((byte) JSONBinaryTag.LongValue);
-                aWriter.Write(AsLong);
+                aWriter.Write(AsLong.Value);
                 return;
             }
             tmp.AsFloat = AsFloat;
             if (tmp.m_Data == m_Data)
             {
                 aWriter.Write((byte) JSONBinaryTag.FloatValue);
-                aWriter.Write(AsFloat);
+                aWriter.Write(AsFloat.Value);
                 return;
             }
             tmp.AsDouble = AsDouble;
             if (tmp.m_Data == m_Data)
             {
                 aWriter.Write((byte) JSONBinaryTag.DoubleValue);
-                aWriter.Write(AsDouble);
+                aWriter.Write(AsDouble.Value);
                 return;
             }
 
@@ -1209,7 +1250,7 @@ namespace SimpleJSON
             if (tmp.m_Data == m_Data)
             {
                 aWriter.Write((byte) JSONBinaryTag.BoolValue);
-                aWriter.Write(AsBool);
+                aWriter.Write(AsBool.Value);
                 return;
             }
             aWriter.Write((byte) JSONBinaryTag.Value);
@@ -1258,77 +1299,77 @@ namespace SimpleJSON
             }
         }
 
-        public override int AsInt
+        public override int? AsInt
         {
             get
             {
-                var tmp = new JSONData(0);
+                var tmp = new JSONData(null);
                 Set(tmp);
                 return 0;
             }
             set
             {
-                var tmp = new JSONData(value);
+                var tmp = new JSONData(value.Value);
                 Set(tmp);
             }
         }
 
-        public override long AsLong
+        public override long? AsLong
         {
             get
             {
-                var tmp = new JSONData(0);
+                var tmp = new JSONData(null);
                 Set(tmp);
                 return 0;
             }
             set
             {
-                var tmp = new JSONData(value);
+                var tmp = new JSONData(value.Value);
                 Set(tmp);
             }
         }
 
-        public override float AsFloat
+        public override float? AsFloat
         {
             get
             {
-                var tmp = new JSONData(0.0f);
+                var tmp = new JSONData(null);
                 Set(tmp);
                 return 0.0f;
             }
             set
             {
-                var tmp = new JSONData(value);
+                var tmp = new JSONData(value.Value);
                 Set(tmp);
             }
         }
 
-        public override double AsDouble
+        public override double? AsDouble
         {
             get
             {
-                var tmp = new JSONData(0.0);
+                var tmp = new JSONData(null);
                 Set(tmp);
                 return 0.0;
             }
             set
             {
-                var tmp = new JSONData(value);
+                var tmp = new JSONData(value.Value);
                 Set(tmp);
             }
         }
 
-        public override bool AsBool
+        public override bool? AsBool
         {
             get
             {
-                var tmp = new JSONData(false);
+                var tmp = new JSONData(null);
                 Set(tmp);
                 return false;
             }
             set
             {
-                var tmp = new JSONData(value);
+                var tmp = new JSONData(value.Value);
                 Set(tmp);
             }
         }

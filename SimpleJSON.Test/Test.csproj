@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="ParseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ToStringTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SimpleJSON.csproj">
