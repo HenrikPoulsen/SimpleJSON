@@ -287,6 +287,9 @@ namespace SimpleJSON
             {
                 switch (c)
                 {
+                    case '/':
+                        result.Append("\\/");
+                        break;
                     case '\\':
                         result.Append("\\\\");
                         break;
@@ -504,8 +507,20 @@ namespace SimpleJSON
                         if (QuoteMode)
                         {
                             var C = aJSON[i];
+                            // The sequences \/, \" and \\ we remove the backslash from when parsing
+                            // for \u we convert it into the character it represents
+                            // and all others we leave alone
                             switch (C)
                             {
+                                case '/':
+                                    Token.Append('/');
+                                    break;
+                                case '"':
+                                    Token.Append('"');
+                                    break;
+                                case '\\':
+                                    Token.Append('\\');
+                                    break;
                                 case 'u':
                                 {
                                     var s = aJSON.Substring(i + 1, 4);

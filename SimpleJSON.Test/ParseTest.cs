@@ -15,7 +15,7 @@ namespace SimpleJSON.Test
         {
             ""string"": {
                 ""normal"": ""this is a string"",
-                ""special"": "":,[]{}\t\n\r\b\u0041\f""
+                ""special"": "":,[]{}\""\\\t\n\r\b\u0041\f\m\/""
             },
             ""integer"": {
                 ""positive"": 1,
@@ -89,7 +89,7 @@ namespace SimpleJSON.Test
             var node = JSON.Parse(JsonObjectStringWithAllTypes);
 
             // assert
-            Assert.AreEqual(@":,[]{}\t\n\r\bA\f", node["string"]["special"].Value);
+            Assert.AreEqual(@":,[]{}""\\t\n\r\bA\f\m/", node["string"]["special"].Value);
         }
 
         [TestMethod]
