@@ -562,6 +562,65 @@ namespace SimpleJSON
                         break;
 
                     default:
+                        if (!QuoteMode)
+                        {
+                            // We check that we dont have illegal characters outside the quotes
+                            switch (currentChar)
+                            {
+                                case '1':
+                                case '2':
+                                case '3':
+                                case '4':
+                                case '5':
+                                case '6':
+                                case '7':
+                                case '8':
+                                case '9':
+                                case '0':
+                                case '+':
+                                case '-':
+                                case 'e':
+                                case 'E':
+                                case '.':
+                                    break;
+                                case 'n':
+                                {
+                                    var s = aJSON.Substring(i, 4);
+                                    if (s == "null")
+                                    {
+                                        i += 4;
+                                        Token.Append(s);
+                                        continue;
+                                    }
+                                    throw new Exception("Json format seems invalid");
+                                }
+                                case 'f':
+                                {
+                                    var s = aJSON.Substring(i, 5);
+                                    if (s == "false")
+                                    {
+                                        i += 5;
+                                        Token.Append(s);
+                                        continue;
+                                    }
+                                    throw new Exception("Json format seems invalid");
+                                }
+                                case 't':
+                                {
+                                    var s = aJSON.Substring(i, 4);
+                                    if (s == "true")
+                                    {
+                                        i += 4;
+                                        Token.Append(s);
+                                        continue;
+                                    }
+                                    throw new Exception("Json format seems invalid");
+                                }
+                                default:
+                                    throw new Exception("Json format seems invalid");
+                            }
+                        }
+
                         Token.Append(currentChar);
                         break;
                 }
@@ -570,6 +629,10 @@ namespace SimpleJSON
             if (QuoteMode)
             {
                 throw new Exception("JSON Parse: Quotation marks seems to be messed up.");
+            }
+            if (stack.Count != 0)
+            {
+                throw new Exception("There are unclosed {} or [] in the string");
             }
             return ctx;
         }

@@ -6,10 +6,29 @@ namespace SimpleJSON.Test
     [TestClass]
     public class ParseTest
     {
-        public static string JsonBuggyString = @"
+        public static string JsonStringEqualsInsteadOfColon = @"
         {
             ""integer"": {
                 ""negative"" = 1
+        }}";
+        public static string JsonStringMissingComma = @"
+        {
+            ""integer"": {
+                ""negative"": 1
+                ""positive"": 1
+        }}";
+        public static string JsonStringMissingClosingBracket = @"
+        {
+            ""integer"": {
+                ""negative"": 1,
+                ""positive"": 1
+            },
+            ""floating"": 1.0";
+        public static string JsonStringMissingOpeningBracket = @"
+        
+            ""integer"": {
+                ""negative"": 1,
+                ""positive"": 1
         }}";
         public static string JsonObjectStringWithAllTypes = @"
         {
@@ -52,6 +71,62 @@ namespace SimpleJSON.Test
             ""emptyArray"": null,
             ""null"": null
         }";
+
+        [TestMethod]
+        [ExpectedException(typeof (Exception))]
+        public void Parse_EqualsInsteadOfColon_ThrowsException()
+        {
+            // arrange
+            // nothing
+
+            // act
+            var node = JSON.Parse(JsonStringEqualsInsteadOfColon);
+
+            // assert
+            Assert.Fail("Should have thrown an exception");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof (Exception))]
+        public void Parse_MissingClosingBracket_ThrowsException()
+        {
+            // arrange
+            // nothing
+
+            // act
+            var node = JSON.Parse(JsonStringMissingClosingBracket);
+
+            // assert
+            Assert.Fail("Should have thrown an exception");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof (Exception))]
+        public void Parse_MissingOpeningBracket_ThrowsException()
+        {
+            // arrange
+            // nothing
+
+            // act
+            var node = JSON.Parse(JsonStringMissingOpeningBracket);
+
+            // assert
+            Assert.Fail("Should have thrown an exception");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof (Exception))]
+        public void Parse_MissingComma_ThrowsException()
+        {
+            // arrange
+            // nothing
+
+            // act
+            var node = JSON.Parse(JsonStringMissingComma);
+
+            // assert
+            Assert.Fail("Should have thrown an exception");
+        }
 
         [TestMethod]
         public void Parse_EmptyJsonObject_NotNull()
