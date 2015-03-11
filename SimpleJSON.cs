@@ -130,8 +130,12 @@ namespace SimpleJSON
             get
             {
                 foreach (var C in Children)
+                {
                     foreach (var D in C.DeepChildren)
+                    {
                         yield return D;
+                    }
+                }
             }
         }
 
@@ -198,13 +202,13 @@ namespace SimpleJSON
             {
                 if (IsNull) return null;
                 var v = 0.0f;
-                if (float.TryParse(Value, out v))
+                if (float.TryParse(Value, NumberStyles.Any, CultureInfo.InvariantCulture, out v))
                     return v;
                 return 0.0f;
             }
             set
             {
-                Value = value.ToString();
+                Value = value.Value.ToString(CultureInfo.InvariantCulture);
                 Tag = JSONBinaryTag.FloatValue;
             }
         }
@@ -215,13 +219,13 @@ namespace SimpleJSON
             {
                 if (IsNull) return null;
                 var v = 0.0;
-                if (double.TryParse(Value, out v))
+                if (double.TryParse(Value, NumberStyles.Any, CultureInfo.InvariantCulture, out v))
                     return v;
                 return 0.0;
             }
             set
             {
-                Value = value.ToString();
+                Value = value.Value.ToString(CultureInfo.InvariantCulture);
                 Tag = JSONBinaryTag.DoubleValue;
             }
         }
@@ -359,7 +363,7 @@ namespace SimpleJSON
                 return new JSONData(longInteger);
             }
 
-            if (double.TryParse(token, out real))
+            if (double.TryParse(token, NumberStyles.Any, CultureInfo.InvariantCulture, out real))
             {
                 return new JSONData(real);
             }

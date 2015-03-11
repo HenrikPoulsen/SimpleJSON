@@ -1,13 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleJSON", "SimpleJSON.csproj", "{2B574145-245D-4515-81F3-92875900E398}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "SimpleJSON.Test\Test.csproj", "{5B455D61-3645-4214-AE3E-BC6C5D1776AD}"
 	ProjectSection(ProjectDependencies) = postProject
 		{2B574145-245D-4515-81F3-92875900E398} = {2B574145-245D-4515-81F3-92875900E398}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A4F0B17A-2789-4447-B2BF-61B423C2C83F}"
+	ProjectSection(SolutionItems) = preProject
+		CodeCoverage.runsettings = CodeCoverage.runsettings
 	EndProjectSection
 EndProject
 Global

@@ -2,3 +2,4 @@ obj/
 bin/
 TestResults/
 *.suo
+*.sln.DotSettings.user
