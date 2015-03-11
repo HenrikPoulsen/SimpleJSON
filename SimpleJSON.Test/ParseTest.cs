@@ -1,9 +1,9 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace SimpleJSON.Test
 {
-    [TestClass]
+    [TestFixture]
     public class ParseTest
     {
         public static string JsonStringEqualsInsteadOfColon = @"
@@ -72,7 +72,7 @@ namespace SimpleJSON.Test
             ""null"": null
         }";
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof (Exception))]
         public void Parse_EqualsInsteadOfColon_ThrowsException()
         {
@@ -86,7 +86,7 @@ namespace SimpleJSON.Test
             Assert.Fail("Should have thrown an exception");
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof (Exception))]
         public void Parse_MissingClosingBracket_ThrowsException()
         {
@@ -100,7 +100,7 @@ namespace SimpleJSON.Test
             Assert.Fail("Should have thrown an exception");
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof (Exception))]
         public void Parse_MissingOpeningBracket_ThrowsException()
         {
@@ -114,7 +114,7 @@ namespace SimpleJSON.Test
             Assert.Fail("Should have thrown an exception");
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof (Exception))]
         public void Parse_MissingComma_ThrowsException()
         {
@@ -128,7 +128,7 @@ namespace SimpleJSON.Test
             Assert.Fail("Should have thrown an exception");
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_EmptyJsonObject_NotNull()
         {
             // arrange
@@ -141,7 +141,7 @@ namespace SimpleJSON.Test
             Assert.IsNotNull(node);
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_EmptyString_ReturnsNull()
         {
             // arrange
@@ -154,7 +154,7 @@ namespace SimpleJSON.Test
             Assert.IsNull(node);
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_SimpleObject_NormalStringSuccess()
         {
             // arrange
@@ -167,7 +167,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual("this is a string", node["string"]["normal"].Value);
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_SimpleObject_SpecialStringSuccess()
         {
             // arrange
@@ -180,7 +180,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual(@":,[]{}""\\t\n\r\bA\f\m/", node["string"]["special"].Value);
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_SimpleObject_PlainIntegerSuccess()
         {
             // arrange
@@ -193,7 +193,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual(1, node["integer"]["positive"].AsInt);
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_SimpleObject_ExplicitPositiveIntegerSuccess()
         {
             // arrange
@@ -206,7 +206,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual(1, node["integer"]["explicitPositive"].AsInt);
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_SimpleObject_NegativeIntegerSuccess()
         {
             // arrange
@@ -219,7 +219,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual(-1, node["integer"]["negative"].AsInt);
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_SimpleObject_FloatingSuccess()
         {
             // arrange
@@ -232,7 +232,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual(3.14, node["floating"]["positive"].AsFloat.Value, 0.000001);
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_SimpleObject_PlainExponentialSuccess()
         {
             // arrange
@@ -245,7 +245,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual(30000, node["exponential"]["positive"].AsInt);
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_SimpleObject_ExplicitPositiveExponentialSuccess()
         {
             // arrange
@@ -258,7 +258,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual(30000, node["exponential"]["explicitPositive"].AsInt);
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_SimpleObject_NegativeExponentialSuccess()
         {
             // arrange
@@ -271,7 +271,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual(0.0003, node["exponential"]["negative"].AsFloat.Value, 0.000001);
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof (NullReferenceException))]
         public void Parse_Null_ThrowsException()
         {
@@ -285,7 +285,7 @@ namespace SimpleJSON.Test
             // Expectes ArgumentNullException
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_SimpleObject_TrueBoolSuccess()
         {
             // arrange
@@ -298,7 +298,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual(true, node["boolean"]["positive"].AsBool);
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_SimpleObject_FalseBoolSuccess()
         {
             // arrange
@@ -311,7 +311,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual(false, node["boolean"]["negative"].AsBool);
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_SimpleObject_NullSuccess()
         {
             // arrange
@@ -324,7 +324,7 @@ namespace SimpleJSON.Test
             Assert.IsTrue(node["null"].IsNull);
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_SimpleObject_EmptyArrayCountZero()
         {
             // arrange
@@ -337,7 +337,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual(0, node["array"]["empty"].AsArray.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_SimpleObject_PopulatedArrayCountSix()
         {
             // arrange
@@ -350,7 +350,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual(6, node["array"]["populated"].AsArray.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_SimpleObject_PopulatedArrayIntAtZero()
         {
             // arrange
@@ -363,7 +363,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual(1, node["array"]["populated"].AsArray[0].AsInt);
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_SimpleObject_PopulatedArrayFloatAtOne()
         {
             // arrange
@@ -376,7 +376,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual(1.0, node["array"]["populated"].AsArray[1].AsFloat.Value, 0.00001);
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_SimpleObject_PopulatedArrayNullAtTwo()
         {
             // arrange
@@ -389,7 +389,7 @@ namespace SimpleJSON.Test
             Assert.IsTrue(node["array"]["populated"].AsArray[2].IsNull);
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_SimpleObject_PopulatedArrayStringAtThree()
         {
             // arrange
@@ -402,7 +402,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual("string", node["array"]["populated"].AsArray[3].Value);
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_SimpleObject_PopulatedArrayBoolAtFour()
         {
             // arrange
@@ -415,7 +415,7 @@ namespace SimpleJSON.Test
             Assert.IsFalse(node["array"]["populated"].AsArray[4].AsBool.Value);
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_SimpleObject_PopulatedArrayObjectAtFive()
         {
             // arrange
@@ -428,7 +428,7 @@ namespace SimpleJSON.Test
             Assert.IsNotNull(node["array"]["populated"].AsArray[5].AsObject);
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_NullObject_IntegerNull()
         {
             // arrange
@@ -441,7 +441,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual(null, node["integer"].AsInt);
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_NullObject_StringNull()
         {
             // arrange
@@ -454,7 +454,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual("null", node["string"].Value);
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_NullObject_BoolNull()
         {
             // arrange
@@ -467,7 +467,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual(null, node["boolean"].AsBool);
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_NullObject_FloatNull()
         {
             // arrange
@@ -480,7 +480,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual(null, node["floating"].AsFloat);
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_NullObject_ArrayNull()
         {
             // arrange

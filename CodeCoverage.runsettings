@@ -44,7 +44,7 @@ Included items must then not match any entries in the exclude list to remain inc
               <Exclude>     
                 <Function>^std::.*</Function>
                 <Function>^ATL::.*</Function>
-                <Function>.*::__GetTestMethodInfo.*</Function>
+                <Function>.*::__GetTestInfo.*</Function>
                 <Function>^Microsoft::VisualStudio::CppCodeCoverageFramework::.*</Function>
                 <Function>^Microsoft::VisualStudio::CppUnitTestFramework::.*</Function>
               </Exclude>

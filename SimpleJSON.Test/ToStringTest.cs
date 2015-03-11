@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Globalization;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace SimpleJSON.Test
 {
-    [TestClass]
+    [TestFixture]
     public class ToStringTest
     {
-        [TestMethod]
+        [Test]
         public void ToString_SimpleObject_NullSuccess()
         {
             // arrange
@@ -25,7 +25,7 @@ namespace SimpleJSON.Test
                           0);
         }
 
-        [TestMethod]
+        [Test]
         public void ToString_SimpleObject_IntegerSuccess()
         {
             // arrange
@@ -43,7 +43,7 @@ namespace SimpleJSON.Test
                           0);
         }
 
-        [TestMethod]
+        [Test]
         public void ToString_SimpleObject_DoubleSuccess()
         {
             // arrange
@@ -61,7 +61,7 @@ namespace SimpleJSON.Test
                           0);
         }
 
-        [TestMethod]
+        [Test]
         public void ToString_SimpleObject_StringSuccess()
         {
             // arrange
@@ -79,7 +79,7 @@ namespace SimpleJSON.Test
                           0);
         }
 
-        [TestMethod]
+        [Test]
         public void ToString_SimpleObject_LongSuccess()
         {
             // arrange
@@ -98,7 +98,7 @@ namespace SimpleJSON.Test
                           0);
         }
 
-        [TestMethod]
+        [Test]
         public void ToString_SimpleObject_BoolSuccess()
         {
             // arrange
@@ -117,7 +117,7 @@ namespace SimpleJSON.Test
                           0);
         }
 
-        [TestMethod]
+        [Test]
         public void ToString_SimpleObject_ObjectSuccess()
         {
             // arrange
@@ -142,7 +142,7 @@ namespace SimpleJSON.Test
                           0);
         }
 
-        [TestMethod]
+        [Test]
         public void ToString_SimpleObject_ArraySuccess()
         {
             // arrange

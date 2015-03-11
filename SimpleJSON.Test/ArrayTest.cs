@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace SimpleJSON.Test
 {
-    [TestClass]
+    [TestFixture]
     public class ArrayTest
     {
-        [TestMethod]
+        [Test]
         public void Array_Add_Null()
         {
             // arrange
@@ -24,7 +18,7 @@ namespace SimpleJSON.Test
             Assert.IsTrue(node["value"][0].IsNull);
         }
 
-        [TestMethod]
+        [Test]
         public void Array_Add_String()
         {
             // arrange
@@ -37,7 +31,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual("string", node["value"][0].Value);
         }
 
-        [TestMethod]
+        [Test]
         public void Array_Add_Int()
         {
             // arrange
@@ -50,7 +44,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual(1, node["value"][0].AsInt);
         }
 
-        [TestMethod]
+        [Test]
         public void Array_Add_Long()
         {
             // arrange
@@ -64,7 +58,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual(expected, node["value"][0].AsLong);
         }
 
-        [TestMethod]
+        [Test]
         public void Array_Add_Bool()
         {
             // arrange
@@ -78,7 +72,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual(expected, node["value"][0].AsBool);
         }
 
-        [TestMethod]
+        [Test]
         public void Array_Add_Double()
         {
             // arrange
@@ -92,7 +86,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual(expected, node["value"][0].AsDouble);
         }
 
-        [TestMethod]
+        [Test]
         public void Array_Add_Float()
         {
             // arrange
@@ -106,7 +100,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual(expected, node["value"][0].AsFloat);
         }
 
-        [TestMethod]
+        [Test]
         public void Array_Remove_WithOneItemAtIndex()
         {
             // arrange
@@ -121,7 +115,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual(0, node["value"].Count);
         }
 
-        [TestMethod]
+        [Test]
         public void Array_Remove_WithOneItemByObject()
         {
             // arrange
@@ -136,7 +130,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual(0, node["value"].Count);
         }
 
-        [TestMethod]
+        [Test]
         public void Array_Remove_WithTwoItemsAtIndex()
         {
             // arrange
@@ -152,7 +146,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual(1, node["value"].Count);
         }
 
-        [TestMethod]
+        [Test]
         public void Array_Remove_WithTwoItemsByObject()
         {
             // arrange
@@ -168,7 +162,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual(1, node["value"].Count);
         }
 
-        [TestMethod]
+        [Test]
         public void Array_Remove_NegativeIndex()
         {
             // arrange
@@ -183,7 +177,7 @@ namespace SimpleJSON.Test
             Assert.IsNull(removed);
         }
 
-        [TestMethod]
+        [Test]
         public void Array_Remove_IndexTooHigh()
         {
             // arrange

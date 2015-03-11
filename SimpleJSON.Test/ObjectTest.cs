@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace SimpleJSON.Test
 {
-    [TestClass]
+    [TestFixture]
     public class ObjectTest
     {
-        [TestMethod]
+        [Test]
         public void Object_Set_EscapeNewLine()
         {
             // arrange
@@ -25,7 +20,7 @@ namespace SimpleJSON.Test
             Assert.IsTrue(result.Contains("\\n"));
         }
 
-        [TestMethod]
+        [Test]
         public void Object_Set_EsapeCarriageReturn()
         {
             // arrange
@@ -40,7 +35,7 @@ namespace SimpleJSON.Test
             Assert.IsTrue(result.Contains("\\r"));
         }
 
-        [TestMethod]
+        [Test]
         public void Object_Set_EscapeForwardSlash()
         {
             // arrange
@@ -55,7 +50,7 @@ namespace SimpleJSON.Test
             Assert.IsTrue(result.Contains("\\/"));
         }
 
-        [TestMethod]
+        [Test]
         public void Object_Set_EscapeBackSlash()
         {
             // arrange
@@ -70,7 +65,7 @@ namespace SimpleJSON.Test
             Assert.IsTrue(result.Contains("\\\\"));
         }
 
-        [TestMethod]
+        [Test]
         public void Object_Set_EscapeQuote()
         {
             // arrange
@@ -85,7 +80,7 @@ namespace SimpleJSON.Test
             Assert.IsTrue(result.Contains("\\\"\\\""));
         }
 
-        [TestMethod]
+        [Test]
         public void Object_Set_EscapeTab()
         {
             // arrange
@@ -100,7 +95,7 @@ namespace SimpleJSON.Test
             Assert.IsTrue(result.Contains("\\t"));
         }
 
-        [TestMethod]
+        [Test]
         public void Object_Set_EscapeB()
         {
             // arrange
@@ -115,7 +110,7 @@ namespace SimpleJSON.Test
             Assert.IsTrue(result.Contains("\\b"));
         }
 
-        [TestMethod]
+        [Test]
         public void Object_Set_EscapeF()
         {
             // arrange
@@ -130,7 +125,7 @@ namespace SimpleJSON.Test
             Assert.IsTrue(result.Contains("\\f"));
         }
 
-        [TestMethod]
+        [Test]
         public void Object_Set_DontEscapeG()
         {
             // arrange
@@ -145,7 +140,7 @@ namespace SimpleJSON.Test
             Assert.IsTrue(result.Contains("\\g"));
         }
 
-        [TestMethod]
+        [Test]
         public void Object_Set_WriteOverItemUpdatesValue()
         {
             // arrange
@@ -159,7 +154,7 @@ namespace SimpleJSON.Test
             Assert.AreEqual("string2", node["value"].Value);
         }
 
-        [TestMethod]
+        [Test]
         public void Object_Set_WriteOverDoesNotAddItem()
         {
             // arrange
