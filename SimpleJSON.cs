@@ -482,6 +482,8 @@ namespace SimpleJSON
                             Token.Append(currentChar);
                             break;
                         }
+                        if (TokenName.Length > 0)
+                            throw new Exception("JSON Parse: The json seems to be broken");
                         TokenName = Token.ToString();
                         Token = new StringBuilder();
                         TokenIsString = false;
