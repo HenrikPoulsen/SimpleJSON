@@ -237,14 +237,7 @@ namespace SimpleJSON
             }
             set
             {
-                if (value == null)
-                {
-                    Value = "null";
-                }
-                else
-                {
-                    Value = value ? "true" : "false";
-                }
+                Value = value ? "true" : "false";
                 Tag = JSONBinaryTag.BoolValue;
             }
         }

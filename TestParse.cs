@@ -108,7 +108,7 @@ namespace SimpleJSON.Test
             // nothing
 
             // act
-            var node = JSON.Parse(JsonStringMissingOpeningBracket);
+            JSON.Parse(JsonStringMissingOpeningBracket);
 
             // assert
             Assert.Fail("Should have thrown an exception");
@@ -122,7 +122,7 @@ namespace SimpleJSON.Test
             // nothing
 
             // act
-            var node = JSON.Parse(JsonStringMissingComma);
+            JSON.Parse(JsonStringMissingComma);
 
             // assert
             Assert.Fail("Should have thrown an exception");
