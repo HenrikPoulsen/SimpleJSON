@@ -229,7 +229,7 @@ namespace SimpleJSON.Test
             var node = JSON.Parse(JsonObjectStringWithAllTypes);
 
             // assert
-            Assert.AreEqual(3.14, node["floating"]["positive"].AsFloat.Value, 0.000001);
+            Assert.AreEqual(3.14, node["floating"]["positive"].AsFloat, 0.000001);
         }
 
         [Test]
@@ -268,7 +268,7 @@ namespace SimpleJSON.Test
             var node = JSON.Parse(JsonObjectStringWithAllTypes);
 
             // assert
-            Assert.AreEqual(0.0003, node["exponential"]["negative"].AsFloat.Value, 0.000001);
+            Assert.AreEqual(0.0003, node["exponential"]["negative"].AsFloat, 0.000001);
         }
 
         [Test]
@@ -373,7 +373,7 @@ namespace SimpleJSON.Test
             var node = JSON.Parse(JsonObjectStringWithAllTypes);
 
             // assert
-            Assert.AreEqual(1.0, node["array"]["populated"].AsArray[1].AsFloat.Value, 0.00001);
+            Assert.AreEqual(1.0, node["array"]["populated"].AsArray[1].AsFloat, 0.00001);
         }
 
         [Test]
@@ -412,7 +412,7 @@ namespace SimpleJSON.Test
             var node = JSON.Parse(JsonObjectStringWithAllTypes);
 
             // assert
-            Assert.IsFalse(node["array"]["populated"].AsArray[4].AsBool.Value);
+            Assert.IsFalse(node["array"]["populated"].AsArray[4].AsBool);
         }
 
         [Test]
@@ -438,7 +438,7 @@ namespace SimpleJSON.Test
             var node = JSON.Parse(JsonObjectStringWithAllNull);
 
             // assert
-            Assert.AreEqual(null, node["integer"].AsInt);
+            Assert.IsTrue(node["integer"].IsNull);
         }
 
         [Test]
@@ -464,7 +464,7 @@ namespace SimpleJSON.Test
             var node = JSON.Parse(JsonObjectStringWithAllNull);
 
             // assert
-            Assert.AreEqual(null, node["boolean"].AsBool);
+            Assert.IsTrue(node["boolean"].IsNull);
         }
 
         [Test]
@@ -477,7 +477,7 @@ namespace SimpleJSON.Test
             var node = JSON.Parse(JsonObjectStringWithAllNull);
 
             // assert
-            Assert.AreEqual(null, node["floating"].AsFloat);
+            Assert.IsTrue(node["floating"].IsNull);
         }
 
         [Test]
@@ -490,7 +490,7 @@ namespace SimpleJSON.Test
             var node = JSON.Parse(JsonObjectStringWithAllNull);
 
             // assert
-            Assert.AreEqual(null, node["floating"].AsArray);
+            Assert.IsTrue(node["floating"].IsNull);
         }
     }
 }
