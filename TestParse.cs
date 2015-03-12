@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace SimpleJSON.Test
 {
     [TestFixture]
-    public class ParseTest
+    public class TestParse
     {
         public static string JsonStringEqualsInsteadOfColon = @"
         {

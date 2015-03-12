@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace SimpleJSON.Test
 {
     [TestFixture]
-    public class ToStringTest
+    public class TestToString
     {
         [Test]
         public void ToString_SimpleObject_NullSuccess()

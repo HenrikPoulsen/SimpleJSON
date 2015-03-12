@@ -33,7 +33,6 @@ Included items must then not match any entries in the exclude list to remain inc
                 <ModulePath>.*\.exe$</ModulePath>
               </Include>
               <Exclude>
-                <ModulePath>.*\.test.dll</ModulePath>
                 <ModulePath>.*CPPUnitTestFramework.*</ModulePath>
               </Exclude>
             </ModulePaths>
@@ -47,6 +46,7 @@ Included items must then not match any entries in the exclude list to remain inc
                 <Function>.*::__GetTestInfo.*</Function>
                 <Function>^Microsoft::VisualStudio::CppCodeCoverageFramework::.*</Function>
                 <Function>^Microsoft::VisualStudio::CppUnitTestFramework::.*</Function>
+                <Function>.*SimpleJSON.Test.*</Function>
               </Exclude>
             </Functions>
 

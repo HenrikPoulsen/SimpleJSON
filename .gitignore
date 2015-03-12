@@ -1,6 +1,6 @@
 obj/
 bin/
 TestResults/
-Packages/*/
+Build/Packages/*/
 *.suo
 *.sln.DotSettings.user

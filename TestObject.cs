@@ -3,7 +3,7 @@
 namespace SimpleJSON.Test
 {
     [TestFixture]
-    public class ObjectTest
+    public class TestObject
     {
         [Test]
         public void Object_Set_EscapeNewLine()

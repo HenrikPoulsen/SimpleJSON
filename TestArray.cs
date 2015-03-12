@@ -3,7 +3,7 @@
 namespace SimpleJSON.Test
 {
     [TestFixture]
-    public class ArrayTest
+    public class TestArray
     {
         [Test]
         public void Array_Add_Null()
