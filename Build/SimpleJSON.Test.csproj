@@ -68,6 +68,9 @@
     <Compile Include="..\TestParse.cs">
       <Link>TestParse.cs</Link>
     </Compile>
+    <Compile Include="..\TestSerializer.cs">
+      <Link>TestSerializer.cs</Link>
+    </Compile>
     <Compile Include="..\TestToString.cs">
       <Link>TestToString.cs</Link>
     </Compile>

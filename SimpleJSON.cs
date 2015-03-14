@@ -1253,51 +1253,36 @@ namespace SimpleJSON
 
         public override void Serialize(BinaryWriter aWriter)
         {
-            var tmp = new JSONData("");
-
-            if (_data == null)
+            switch (Tag)
             {
-                aWriter.Write((byte) JSONBinaryTag.Null);
-                return;
+                case JSONBinaryTag.Null:
+                    aWriter.Write((byte) JSONBinaryTag.Null);
+                    break;
+                case JSONBinaryTag.LongValue:
+                    aWriter.Write((byte) JSONBinaryTag.LongValue);
+                    aWriter.Write(AsLong);
+                    break;
+                case JSONBinaryTag.IntValue:
+                    aWriter.Write((byte) JSONBinaryTag.IntValue);
+                    aWriter.Write(AsInt);
+                    break;
+                case JSONBinaryTag.FloatValue:
+                    aWriter.Write((byte) JSONBinaryTag.FloatValue);
+                    aWriter.Write(AsFloat);
+                    break;
+                case JSONBinaryTag.DoubleValue:
+                    aWriter.Write((byte) JSONBinaryTag.DoubleValue);
+                    aWriter.Write(AsDouble);
+                    break;
+                case JSONBinaryTag.BoolValue:
+                    aWriter.Write((byte) JSONBinaryTag.BoolValue);
+                    aWriter.Write(AsBool);
+                    break;
+                default:
+                    aWriter.Write((byte) JSONBinaryTag.Value);
+                    aWriter.Write(_data);
+                    break;
             }
-            tmp.AsInt = AsInt;
-            if (tmp._data == _data)
-            {
-                aWriter.Write((byte) JSONBinaryTag.IntValue);
-                aWriter.Write(AsInt);
-                return;
-            }
-            tmp.AsLong = AsLong;
-            if (tmp._data == _data)
-            {
-                aWriter.Write((byte) JSONBinaryTag.LongValue);
-                aWriter.Write(AsLong);
-                return;
-            }
-            tmp.AsFloat = AsFloat;
-            if (tmp._data == _data)
-            {
-                aWriter.Write((byte) JSONBinaryTag.FloatValue);
-                aWriter.Write(AsFloat);
-                return;
-            }
-            tmp.AsDouble = AsDouble;
-            if (tmp._data == _data)
-            {
-                aWriter.Write((byte) JSONBinaryTag.DoubleValue);
-                aWriter.Write(AsDouble);
-                return;
-            }
-
-            tmp.AsBool = AsBool;
-            if (tmp._data == _data)
-            {
-                aWriter.Write((byte) JSONBinaryTag.BoolValue);
-                aWriter.Write(AsBool);
-                return;
-            }
-            aWriter.Write((byte) JSONBinaryTag.Value);
-            aWriter.Write(_data);
         }
     }
 
