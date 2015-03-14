@@ -147,8 +147,6 @@ namespace SimpleJSON
             return "JSONNode";
         }
 
-        public abstract string ToJSON(int prefix);
-
         #endregion common interface
 
         #region typecasting properties
@@ -944,24 +942,6 @@ namespace SimpleJSON
             return result.ToString();
         }
 
-        public override string ToJSON(int prefix)
-        {
-            var s = new string(' ', (prefix + 1)*2);
-            var result = new StringBuilder("[ ");
-            foreach (var node in _nodeList)
-            {
-                if (result.Length > 3)
-                    result.Append(", ");
-                result.Append("\n");
-                result.Append(s);
-                result.Append(node.ToJSON(prefix + 1));
-            }
-            result.Append("\n");
-            result.Append(s);
-            result.Append("]");
-            return result.ToString();
-        }
-
         public override void Serialize(BinaryWriter aWriter)
         {
             aWriter.Write((byte) JSONBinaryTag.Array);
@@ -1110,27 +1090,6 @@ namespace SimpleJSON
             return result.ToString();
         }
 
-        public override string ToJSON(int prefix)
-        {
-            var s = new string(' ', (prefix + 1)*2);
-            var result = new StringBuilder("{ ");
-            foreach (var n in _nodeDict)
-            {
-                if (result.Length > 3)
-                    result.Append(", ");
-                result.Append("\n");
-                result.Append(s);
-                result.Append("\"");
-                result.Append(n.Key);
-                result.Append("\": ");
-                result.Append(n.Value.ToJSON(prefix + 1));
-            }
-            result.Append("\n");
-            result.Append(s);
-            result.Append("}");
-            return result.ToString();
-        }
-
         public override void Serialize(BinaryWriter aWriter)
         {
             aWriter.Write((byte) JSONBinaryTag.Class);
@@ -1228,27 +1187,6 @@ namespace SimpleJSON
             result.Append(Escape(_data));
             result.Append("\"");
             return result.ToString();
-        }
-
-        public override string ToJSON(int prefix)
-        {
-            switch (Tag)
-            {
-                case JSONBinaryTag.DoubleValue:
-                case JSONBinaryTag.FloatValue:
-                case JSONBinaryTag.IntValue:
-                case JSONBinaryTag.LongValue:
-                case JSONBinaryTag.BoolValue:
-                case JSONBinaryTag.Null:
-                    return _data;
-                case JSONBinaryTag.Value:
-                    var result = new StringBuilder("\"");
-                    result.Append(Escape(_data));
-                    result.Append("\"");
-                    return result.ToString();
-                default:
-                    throw new NotSupportedException("This shouldn't be here: " + Tag);
-            }
         }
 
         public override void Serialize(BinaryWriter aWriter)
@@ -1473,11 +1411,6 @@ namespace SimpleJSON
         }
 
         public override string ToString(string aPrefix)
-        {
-            return "";
-        }
-
-        public override string ToJSON(int prefix)
         {
             return "";
         }
