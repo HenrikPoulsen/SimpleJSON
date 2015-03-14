@@ -1274,7 +1274,7 @@ namespace SimpleJSON
         {
             get
             {
-                var tmp = new JSONData(null);
+                var tmp = new JSONData(0);
                 Set(tmp);
                 return 0;
             }
@@ -1289,9 +1289,9 @@ namespace SimpleJSON
         {
             get
             {
-                var tmp = new JSONData(null);
+                var tmp = new JSONData(0L);
                 Set(tmp);
-                return 0;
+                return 0L;
             }
             set
             {
@@ -1304,7 +1304,7 @@ namespace SimpleJSON
         {
             get
             {
-                var tmp = new JSONData(null);
+                var tmp = new JSONData(0.0f);
                 Set(tmp);
                 return 0.0f;
             }
@@ -1319,7 +1319,7 @@ namespace SimpleJSON
         {
             get
             {
-                var tmp = new JSONData(null);
+                var tmp = new JSONData(0.0);
                 Set(tmp);
                 return 0.0;
             }
@@ -1334,7 +1334,7 @@ namespace SimpleJSON
         {
             get
             {
-                var tmp = new JSONData(null);
+                var tmp = new JSONData(false);
                 Set(tmp);
                 return false;
             }
