@@ -191,5 +191,172 @@ namespace SimpleJSON.Test
             // assert
             Assert.IsNull(removed);
         }
+
+        [Test]
+        public void Array_Get_NegativeIndex()
+        {
+            // arrange
+            var node = new JSONClass();
+            JSONNode value = new JSONData(1.5);
+            node["value"].Add(value);
+
+            // act
+            var accessed = node["value"][-1];
+
+            // assert
+            Assert.IsNotNull(accessed);
+        }
+
+        [Test]
+        public void Array_Get_IndexTooHigh()
+        {
+            // arrange
+            var node = new JSONClass();
+            JSONNode value = new JSONData(1.5);
+            node["value"].Add(value);
+
+            // act
+            var accessed = node["value"][2];
+
+            // assert
+            Assert.IsNotNull(accessed);
+        }
+
+        [Test]
+        public void Array_GetByString_Object()
+        {
+            // arrange
+            var node = new JSONClass();
+            JSONNode value = new JSONData(1.5);
+            node["value"].Add(value);
+
+            // act
+            var accessed = node["value"]["key"];
+
+            // assert
+            Assert.IsNotNull(accessed);
+        }
+
+        [Test]
+        public void Array_Set_NegativeIndex()
+        {
+            // arrange
+            var node = new JSONClass();
+            JSONNode value = new JSONData(1.5);
+            node["value"].Add(value);
+
+            // act
+            node["value"][-1] = new JSONData(null);
+
+            // assert
+            Assert.AreEqual(2, node["value"].Count);
+        }
+
+        [Test]
+        public void Array_Set_IndexTooHigh()
+        {
+            // arrange
+            var node = new JSONClass();
+            JSONNode value = new JSONData(1.5);
+            node["value"].Add(value);
+
+            // act
+            node["value"][2] = new JSONData(null);
+
+            // assert
+            Assert.AreEqual(2, node["value"].Count);
+        }
+
+        [Test]
+        public void Array_SetByString_IndexTooHigh()
+        {
+            // arrange
+            var node = new JSONClass();
+            JSONNode value = new JSONData(1.5);
+            node["value"].Add(value);
+
+            // act
+            node["value"]["key"] = new JSONData(null);
+
+            // assert
+            Assert.AreEqual(2, node["value"].Count);
+        }
+
+        [Test]
+        public void Array_Set_OverWrite()
+        {
+            // arrange
+            var node = new JSONClass();
+            JSONNode value = new JSONData(1.5);
+            node["value"].Add(value);
+
+            // act
+            node["value"][0] = new JSONData(null);
+
+            // assert
+            Assert.AreEqual(1, node["value"].Count);
+        }
+
+        [Test]
+        public void Array_GetEnumerator_EmptyArray()
+        {
+            // arrange
+            var array = new JSONArray();
+            // act
+            foreach (var item in array)
+            {
+                Assert.Fail();
+            }
+
+            // assert
+        }
+
+        [Test]
+        public void Array_GetEnumerator_OneItem()
+        {
+            // arrange
+            var array = new JSONArray();
+            array.Add(new JSONData(null));
+            // act
+            var i = 0;
+            foreach (var item in array)
+            {
+                ++i;
+            }
+
+            // assert
+            Assert.AreEqual(1, i);
+        }
+
+        [Test]
+        public void Array_Children_EmptyArray()
+        {
+            // arrange
+            var array = new JSONArray();
+            // act
+            foreach (var item in array.Children)
+            {
+                Assert.Fail();
+            }
+
+            // assert
+        }
+
+        [Test]
+        public void Array_Children_OneItem()
+        {
+            // arrange
+            var array = new JSONArray();
+            array.Add(new JSONData(null));
+            // act
+            var i = 0;
+            foreach (var item in array.Children)
+            {
+                ++i;
+            }
+
+            // assert
+            Assert.AreEqual(1, i);
+        }
     }
 }

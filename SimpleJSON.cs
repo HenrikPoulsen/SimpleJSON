@@ -323,6 +323,7 @@ namespace SimpleJSON
             int integer;
             long longInteger;
             double real;
+            float floatingPoint;
 
             if (token.Equals("null"))
             {
@@ -339,10 +340,18 @@ namespace SimpleJSON
                 return new JSONData(longInteger);
             }
 
+            // If the token is too long we let it fall through to the double parsing instead
+            if (token.Length <= 7 &&
+                float.TryParse(token, NumberStyles.Any, CultureInfo.InvariantCulture, out floatingPoint))
+            {
+                return new JSONData(floatingPoint);
+            }
+
             if (double.TryParse(token, NumberStyles.Any, CultureInfo.InvariantCulture, out real))
             {
                 return new JSONData(real);
             }
+
 
             if (bool.TryParse(token, out flag))
             {

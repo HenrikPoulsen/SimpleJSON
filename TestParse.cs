@@ -46,6 +46,11 @@ namespace SimpleJSON.Test
                 ""explicitPositive"": +3.14,
                 ""negative"": -3.14
             },
+            ""double"": {
+                ""positive"": 3.14159265359,
+                ""explicitPositive"": +3.14159265359,
+                ""negative"": -3.14159265359
+            },
             ""exponential"": {
                 ""positive"": 3E4,
                 ""explicitPositive"": 3E+4,
@@ -230,6 +235,71 @@ namespace SimpleJSON.Test
 
             // assert
             Assert.AreEqual(3.14, node["floating"]["positive"].AsFloat, 0.000001);
+        }
+
+        [Test]
+        public void Parse_SimpleObject_FloatingExplicitPositiveSuccess()
+        {
+            // arrange
+            // nothing
+
+            // act
+            var node = JSON.Parse(JsonObjectStringWithAllTypes);
+
+            // assert
+            Assert.AreEqual(3.14, node["floating"]["explicitPositive"].AsFloat, 0.000001);
+        }
+
+        [Test]
+        public void Parse_SimpleObject_FloatingNegativeSuccess()
+        {
+            // arrange
+            // nothing
+
+            // act
+            var node = JSON.Parse(JsonObjectStringWithAllTypes);
+
+            // assert
+            Assert.AreEqual(-3.14, node["floating"]["negative"].AsFloat, 0.000001);
+        }
+
+        [Test]
+        public void Parse_SimpleObject_DoubleSuccess()
+        {
+            // arrange
+            // nothing
+
+            // act
+            var node = JSON.Parse(JsonObjectStringWithAllTypes);
+
+            // assert
+            Assert.AreEqual(3.14159265359, node["double"]["positive"].AsDouble, 0.000000000001);
+        }
+
+        [Test]
+        public void Parse_SimpleObject_DoubleExplicitPositiveSuccess()
+        {
+            // arrange
+            // nothing
+
+            // act
+            var node = JSON.Parse(JsonObjectStringWithAllTypes);
+
+            // assert
+            Assert.AreEqual(3.14159265359, node["double"]["explicitPositive"].AsDouble, 0.000000000001);
+        }
+
+        [Test]
+        public void Parse_SimpleObject_DoubleNegativeSuccess()
+        {
+            // arrange
+            // nothing
+
+            // act
+            var node = JSON.Parse(JsonObjectStringWithAllTypes);
+
+            // assert
+            Assert.AreEqual(-3.14159265359, node["double"]["negative"].AsDouble, 0.000000000001);
         }
 
         [Test]
