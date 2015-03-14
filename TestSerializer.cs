@@ -655,5 +655,22 @@ namespace SimpleJSON.Test
             // assert
             Assert.AreEqual(0.0003, node["exponential"]["negative"].AsFloat, 0.000001);
         }
+
+        [Test]
+        public void Serialize_SimpleObject_Base64()
+        {
+            // arrange
+            var node = JSON.Parse(JsonObjectStringWithAllNull);
+
+            // act
+            var base64 = node.SaveToBase64();
+            var loaded = JSONClass.LoadFromBase64(base64).ToString();
+
+            // assert
+            Assert.IsTrue(
+                String.Compare(JsonObjectStringWithAllNull, loaded, CultureInfo.CurrentCulture,
+                    CompareOptions.IgnoreSymbols) ==
+                0);
+        }
     }
 }

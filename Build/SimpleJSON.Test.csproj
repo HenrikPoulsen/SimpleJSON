@@ -62,8 +62,8 @@
     <Compile Include="..\TestArray.cs">
       <Link>TestArray.cs</Link>
     </Compile>
-    <Compile Include="..\TestObject.cs">
-      <Link>TestObject.cs</Link>
+    <Compile Include="..\TestJsonClass.cs">
+      <Link>TestJsonClass.cs</Link>
     </Compile>
     <Compile Include="..\TestParse.cs">
       <Link>TestParse.cs</Link>

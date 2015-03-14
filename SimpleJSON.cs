@@ -771,12 +771,9 @@ namespace SimpleJSON
                 {
                     return new JSONData(null);
                 }
-
-                default:
-                {
-                    throw new Exception("Error deserializing JSON. Unknown tag: " + type);
-                }
             }
+
+            throw new Exception("JSON Deserialize: Unknown tag in stream");
         }
 
 #if USE_SharpZipLib

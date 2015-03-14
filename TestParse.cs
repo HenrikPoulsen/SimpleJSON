@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.ExceptionServices;
 using NUnit.Framework;
 
 namespace SimpleJSON.Test
@@ -561,6 +562,23 @@ namespace SimpleJSON.Test
 
             // assert
             Assert.IsTrue(node["floating"].IsNull);
+        }
+
+        [Test]
+        public void Parse_ObjectWithIdenticalItems_Overwrite()
+        {
+            // arrange
+            const string jsonString = @"
+            {
+                ""value"": ""first"",
+                ""value"": ""second""
+            }";
+
+            // act
+            var node = JSON.Parse(jsonString);
+
+            // assert
+            Assert.AreEqual("second", node["value"].Value);
         }
     }
 }
