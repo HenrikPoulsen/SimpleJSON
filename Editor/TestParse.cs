@@ -78,7 +78,6 @@ namespace SimpleJSON.Test
         }";
 
         [Test]
-        [ExpectedException(typeof (Exception))]
         public void Parse_EqualsInsteadOfColon_ThrowsException()
         {
             // arrange
@@ -92,7 +91,6 @@ namespace SimpleJSON.Test
         }
 
         [Test]
-        [ExpectedException(typeof (Exception))]
         public void Parse_MissingClosingBracket_ThrowsException()
         {
             // arrange
@@ -106,7 +104,6 @@ namespace SimpleJSON.Test
         }
 
         [Test]
-        [ExpectedException(typeof (Exception))]
         public void Parse_MissingOpeningBracket_ThrowsException()
         {
             // arrange
@@ -120,7 +117,6 @@ namespace SimpleJSON.Test
         }
 
         [Test]
-        [ExpectedException(typeof (Exception))]
         public void Parse_MissingComma_ThrowsException()
         {
             // arrange
